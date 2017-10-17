@@ -1,0 +1,5 @@
+services:
+    mbaldanza.salary_command.salary_command:
+        class: MBaldanza\Salary\Command\SalaryCommand
+        tags:
+            - { name: console.command }
