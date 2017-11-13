@@ -16,6 +16,7 @@ class SalaryDateCalculatorTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->salaryDateCalculator = new SalaryDateCalculator(
+            new DateTimeImmutable(),
             $this->createMock(BonusDateCalculator::class)
         );
     }

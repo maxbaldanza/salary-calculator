@@ -1,0 +1,5 @@
+default:
+    suites:
+        all_features:
+            paths:    [ %paths.base%/features ]
+            contexts: [ SalaryContext ]

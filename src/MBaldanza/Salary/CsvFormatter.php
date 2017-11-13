@@ -36,7 +36,7 @@ class CsvFormatter implements Formatter
         $this->createFile();
         
         if ($headers) {
-            $headers = $this->fillHeaders(count($data), $headers);
+            $headers = $this->fillHeaders(count($data[0]), $headers);
             $this->outputFile->fputcsv($headers, self::DELIMITER, self::ENCLOSURE);
         }
         

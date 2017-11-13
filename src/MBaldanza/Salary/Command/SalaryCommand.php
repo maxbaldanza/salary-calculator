@@ -2,6 +2,7 @@
 
 namespace MBaldanza\Salary\Command;
 
+use DateTimeImmutable;
 use MBaldanza\Salary\BonusDateCalculator;
 use MBaldanza\Salary\CsvFormatter;
 use MBaldanza\Salary\SalaryDateCalculator;
@@ -20,6 +21,7 @@ class SalaryCommand extends Command
             ->setDescription('Export salaries')
 
             ->addOption('filename', 'f', InputOption::VALUE_REQUIRED, 'Filename to export payroll to', 'var/payroll.csv')
+            ->addOption('date', null, InputOption::VALUE_OPTIONAL, 'Date to calculate salaries from')
         ;
     }
 
@@ -27,7 +29,9 @@ class SalaryCommand extends Command
     {
         $filename = $input->getOption('filename');
 
+
         $salaryDateCalculator = new SalaryDateCalculator(
+            $this->getDateFromInput($input),
             new BonusDateCalculator(),
             new StandardDateCalculator()
         );
@@ -35,8 +39,18 @@ class SalaryCommand extends Command
         $results = $salaryDateCalculator->createResults(12);
 
         $csv = new CsvFormatter($filename);
-        $csv->export($results, ['Year', 'Bonus', 'Salary']);
+        $csv->export($results, ['Month', 'Bonus', 'Salary']);
 
         $output->write("Output wrote to file: $filename");
+    }
+
+    private function getDateFromInput(InputInterface $input)
+    {
+        $date = $input->getOption('date');
+        if (!$date) {
+            return new DateTimeImmutable();
+        }
+
+        return new DateTimeImmutable($date);
     }
 }

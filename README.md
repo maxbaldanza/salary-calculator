@@ -15,6 +15,7 @@ after that you are all set to run the application:
 
 Test cases
 ----------
-to run the test cases just run phpunit:
+To run the test cases:
 
-    ./vendor/bin/phpunit
+    ./bin/phpunit
+    ./bin/behat

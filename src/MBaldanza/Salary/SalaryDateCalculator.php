@@ -16,9 +16,9 @@ class SalaryDateCalculator
      */
     private $dateCalculators;
 
-    public function __construct(DateCalculator ...$dateCalculators)
+    public function __construct(DateTimeImmutable $startDate, DateCalculator ...$dateCalculators)
     {
-        $this->startDate = new DateTimeImmutable();
+        $this->startDate = $startDate;
         $this->dateCalculators = $dateCalculators;
     }
 
